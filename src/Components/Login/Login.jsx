@@ -7,11 +7,12 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { RiEyeOffFill } from '@react-icons/all-files/ri/RiEyeOffFill'
 import { RiEyeFill } from '@react-icons/all-files/ri/RiEyeFill'
 import {FcGoogle} from '@react-icons/all-files/fc/FcGoogle'
-// import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import {signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
 
 
 const Login = () => {
+  const provider = new GoogleAuthProvider();
   const show = "Show"
   const notShow = "Not Show"
   const auth = getAuth();
@@ -23,8 +24,19 @@ const Login = () => {
   const [password , setPassword] = useState ('')
   const [passwordErr , setPasswordErr] = useState('')
 
-  const googleHandle = (e) =>{
-    console.log('all is well')
+  const googleHandle = () =>{
+    console.log("all is well");
+    signInWithPopup(auth, provider)
+  .then(() => {
+    console.log("login Success");
+    setTimeout(() =>{
+      navigate("/home")
+    },2000)
+  }).catch((error) => {
+    // Handle Errors here.
+    console.log(error.code)
+  });
+
   }
     const emailHandle = (e) =>{
       setEmail(e.target.value)
@@ -117,6 +129,7 @@ const Login = () => {
               <button onClick={submitHandle} className='w-[300px] py-[15px] px-[25px] border-2 border-[#fff] rounded-full bg-[#fff] hover:bg-[#3c15c3] hover:text-[#fff] transition duration-150' >Sign Up </button>
             </div>
             <p className='text-sm text-[#fff] mt-[25px] text-center '>Don’t have an account ? <Link to='/registration' className='font-bold text-[#2dfe54] cursor-pointer'>Sign Up</Link></p>
+            <p className='text-sm text-[#fff] mt-[10px] text-center '><Link to='/resetPassword ' className='font-bold text-[#2dfe54] cursor-pointer'>Forgot Password</Link></p>
               <div onClick={googleHandle} className="with-google flex justify-center w-[80%] m-auto  rounded-md px-[30px] py-[15px] bg-[#fff] mt-[25px] cursor-pointer ">
                   <FcGoogle className="w-[22px] h-[22px] "></FcGoogle>
                   <button  className='ml-[10px] font-sans text-sm' > Login With Google </button>

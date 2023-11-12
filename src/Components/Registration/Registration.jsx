@@ -7,11 +7,12 @@ import { ToastContainer, toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import {FcGoogle} from '@react-icons/all-files/fc/FcGoogle'
-import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import {FaFacebookSquare} from '@react-icons/all-files/fa/FaFacebookSquare'
+import {  signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+
 
 
 const Registration = () => {
-    const provider = new GoogleAuthProvider();
     const navigate = useNavigate()
     const auth = getAuth();
     const [email, setEmail] = useState('')
@@ -22,21 +23,22 @@ const Registration = () => {
     const [passworderr, setPassworderr] = useState('')
     const [passwordShow, setPasswordShow] = useState(false)
     const [regSuccess , setRegSuccess] = useState('')
+    const provider = new GoogleAuthProvider();
 
 
     const googleHandle = () =>{
         console.log("all is well")
-        signInWithPopup(auth, provider)
-  .then(() => {
-    setTimeout(() =>{
-        navigate("/")
-    },3000)
-  }).catch((error) => {
-    // Handle Errors here.
-    const errorCode = error.code;
-  });
+            signInWithPopup(auth, provider)
+            .then(() => {
+                setTimeout(() =>{
+                    navigate("/home")
+                },2000)
+            }).catch((error) => {
+                // Handle Errors here.
+                const errorCode = error.code;
 
-    }
+            });
+    } 
     const emailHandle = (e) => {
         setEmail(e.target.value)
         setEmailerr('')
@@ -150,7 +152,7 @@ const Registration = () => {
                                 </div>
                                 <p className='text-sm text-[#fff] mt-[25px] text-center '>Already  have an account ? <Link to='/login' className='font-bold text-[#2dfe54] cursor-pointer'>Sign In</Link></p>
                                 
-                                 <div onClick={googleHandle} className="with-google flex justify-center w-[80%] m-auto  rounded-md px-[30px] py-[15px] bg-[#fff] mt-[25px] cursor-pointer ">
+                                 <div onClick={googleHandle} className="with-google flex justify-center w-[80%] m-auto  rounded-md px-[30px] py-[15px] bg-[#c6c6c6] mt-[25px] cursor-pointer ">
                                     <FcGoogle className="w-[22px] h-[22px] "></FcGoogle>
                                     <button  className='ml-[10px] font-sans text-sm' > Sign In With Google </button>
                                 </div>
