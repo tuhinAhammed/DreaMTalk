@@ -8,7 +8,8 @@ import { RiEyeOffFill } from '@react-icons/all-files/ri/RiEyeOffFill'
 import { RiEyeFill } from '@react-icons/all-files/ri/RiEyeFill'
 import {FcGoogle} from '@react-icons/all-files/fc/FcGoogle'
 import {signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-
+import { useDispatch } from "react-redux"
+import { userLoginInfo } from '../../Redux/Slice/userSlice';
 
 
 const Login = () => {
@@ -23,6 +24,7 @@ const Login = () => {
   const [emailErr , setEmailErr] = useState('')
   const [password , setPassword] = useState ('')
   const [passwordErr , setPasswordErr] = useState('')
+  const dispatch = useDispatch()
 
   const googleHandle = () =>{
     console.log("all is well");
@@ -30,7 +32,7 @@ const Login = () => {
   .then(() => {
     console.log("login Success");
     setTimeout(() =>{
-      navigate("/home")
+      navigate("/")
     },2000)
   }).catch((error) => {
     // Handle Errors here.
@@ -59,10 +61,11 @@ const Login = () => {
       if (email && password ){
         console.log('All is Well')
               signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-         
+        .then((e) => {
+          dispatch(userLoginInfo(e.user))
+          localStorage.setItem("userLoginInfo" , JSON.stringify(userLoginInfo(e)))
           setTimeout(() =>{
-            navigate('/home')
+            navigate('/')
             setNotValid('')
 
           } ,3000)
@@ -75,7 +78,7 @@ const Login = () => {
           console.log(error.code)
           console.log(error.message)
           if (error.code.includes("auth/invalid-login-credentials")){
-            setNotValid(" Please Enter Right Email and Password")
+            setNotValid(" Please Enter valid Email and Password")
           }
         });
         

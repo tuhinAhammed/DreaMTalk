@@ -7,7 +7,18 @@ import Sidebar from '../Sidebar/Sidebar'
 import UserList from '../UserList/UserList'
 import MyGroup from '../MyGroup/MyGroup'
 import BlockUser from '../BlockUser/BlockUser'
+import { useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 const Home = () => {
+  const navigate = useNavigate()
+  const data = useSelector(state => state.userLoginInfo.userInfo)
+  console.log("Here data" , data);
+  useEffect (() => {
+    if  (!data) {
+      navigate("/Login")
+    }
+  })
   return (
     <>
       <div className="home">

@@ -9,35 +9,39 @@ import {FiLogOut} from '@react-icons/all-files/fi/FiLogOut'
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-
+import { signOut } from "firebase/auth";
+import { useDispatch } from 'react-redux'
+import { userLoginInfo } from '../../Redux/Slice/userSlice'
 const Sidebar = () => {
   const navigate = useNavigate()
   const auth = getAuth();
   const [email ,setEmail] = useState('')
   const [password , setPassword] = useState ('')
+  const dispatch = useDispatch ()
 
   const UploadProfileUi = (() =>{
     navigate("./UpdateProfile")
     console.log("all is well")
-  })
-  const handleSignup = (() =>{
-      createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed up 
-        const user = userCredential.user;
-        console.log(user);
-        // ...
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        console.log(errorCode);
-        const errorMessage = error.message;
-        // ..
-      });
-  
-      console.log("LogOut Sucessfull");
-    
-  })
+   })
+
+    // SignUp 
+
+ const handleSignup = (() => {
+  const auth = getAuth();
+  signOut(auth).then(() => {
+    // Sign-out successful.
+    dispatch(userLoginInfo(null))
+    localStorage.removeItem ("userLoginInfo")
+    navigate("/login")
+    console.log("SignOut Successfull");
+  }).catch((error) => {
+    // An error happened.
+  });
+
+ })
+
+
+
 
   return (
     <>

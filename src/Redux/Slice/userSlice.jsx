@@ -1,13 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
-export default userSlice = createSlice({
+const initialState = {
+    userInfo : localStorage.getItem ("userLoginInfo") ? JSON.parse (localStorage.getItem("userLoginInfo")) : null,
+}
+
+export  const userSlice = createSlice({
     name : "user" ,
-    initialState : {
-        value : 0 
-    } ,
+    initialState ,
     reducers : {
-        demo : (state , action) => {
-            console.log("ok" , action.payload)
+        userLoginInfo : (state , action) => {
+            state.userInfo = action.payload
+            console.log("This IS PAYLOAD" ,action.payload  )
         }
 
     }
 })
+export const { userLoginInfo } = userSlice.actions ;
+export default userSlice.reducer
