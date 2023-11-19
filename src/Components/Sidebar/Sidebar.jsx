@@ -24,7 +24,7 @@ const Sidebar = () => {
     console.log("all is well")
    })
 
-    // SignUp 
+    // SignUp , Logout
 
  const handleSignup = (() => {
   const auth = getAuth();

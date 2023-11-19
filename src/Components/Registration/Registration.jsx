@@ -2,7 +2,7 @@ import React from 'react'
 import { RiEyeOffFill } from '@react-icons/all-files/ri/RiEyeOffFill'
 import { RiEyeFill } from '@react-icons/all-files/ri/RiEyeFill'
 import react, { useState } from 'react'
-import { getAuth, createUserWithEmailAndPassword , sendEmailVerification} from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword , sendEmailVerification, updateProfile} from "firebase/auth";
 import { ToastContainer, toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
@@ -78,17 +78,28 @@ const Registration = () => {
             }
         }
         if (email && password && (/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) && (/^[A-Za-z\d]{4,}/.test(password)) && (/^(?=.*\d)/.test(password)) && (/^(?=.*[A-Za-z])/.test(password)) ){
-            createUserWithEmailAndPassword(auth, email, password).then(() =>{
-                sendEmailVerification(auth.currentUser)
-                .then(() => {
-                        toast.success('Registration Done , a Varification Link has been sent to your email account. Please check & Varify Your Email');
-                        setEmail('')
-                        setFullName('')
-                        setPassword('')
-                        setTimeout(() => {
-                        navigate('/login')
-                        }, 3000)
-                    });
+            createUserWithEmailAndPassword(auth, email, password).then((user) =>{
+                
+                updateProfile(auth.currentUser, {
+                    displayName: fullName,
+                    photoURL: "https://example.com/jane-q-user/profile.jpg"
+                  }).then(() => {
+                    // Profile updated!
+                    console.log("bg" , user)
+                    toast.success('Registration Done , a Varification Link has been sent to your email account. Please check & Varify Your Email');
+                    setEmail('')
+                    setFullName('')
+                    setPassword('')
+                    sendEmailVerification(auth.currentUser)
+                    setTimeout(() => {
+                    navigate('/login')
+                    }, 3000)
+                  }).catch((error) => {
+                    // An error occurred
+                    // ...
+                  });
+                
+                    
 
             }).catch((error) => {
                 if(error.code.includes('auth/email-already-in-use')){
