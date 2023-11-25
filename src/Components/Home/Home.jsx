@@ -7,16 +7,26 @@ import Sidebar from '../Sidebar/Sidebar'
 import UserList from '../UserList/UserList'
 import MyGroup from '../MyGroup/MyGroup'
 import BlockUser from '../BlockUser/BlockUser'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { getAuth, onAuthStateChanged } from 'firebase/auth'
+import { userLoginInfo } from '../../Redux/Slice/userSlice'
 const Home = () => {
   const navigate = useNavigate()
+  const auth = getAuth()
+  const dispatch = useDispatch()
   const data = useSelector(state => state.userLoginInfo.userInfo)
   console.log("Here data" , data);
   useEffect (() => {
     if  (!data) {
-      navigate("/Login")
+      navigate("/login")
+    }
+    else {
+      onAuthStateChanged(auth, (user) => {
+        dispatch(userLoginInfo(user));
+        localStorage.setItem("userLoginInfo", JSON.stringify(user));
+      });
     }
   })
   return (

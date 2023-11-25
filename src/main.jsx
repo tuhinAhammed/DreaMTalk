@@ -33,7 +33,7 @@ const router = createBrowserRouter([
     element: <ResetPassword></ResetPassword>,
   },
   {
-    path : "home/updateProfile" ,
+    path : "/updateProfile" ,
     element : <UpdateProfile></UpdateProfile>
   },
 ]);

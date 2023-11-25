@@ -10,17 +10,21 @@ import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { signOut } from "firebase/auth";
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { userLoginInfo } from '../../Redux/Slice/userSlice'
+
 const Sidebar = () => {
   const navigate = useNavigate()
   const auth = getAuth();
   const [email ,setEmail] = useState('')
   const [password , setPassword] = useState ('')
+  const [profileImage , setProfileImage] = useState("false")
   const dispatch = useDispatch ()
+  const imageData = useSelector(state => state.userLoginInfo.userInfo.photoURL)
+    console.log(imageData)
 
   const UploadProfileUi = (() =>{
-    navigate("./UpdateProfile")
+    navigate("/UpdateProfile")
     console.log("all is well")
    })
 
@@ -46,8 +50,17 @@ const Sidebar = () => {
   return (
     <>
         <div className="homeSidebar w-[160px] h-full px-[25px] py-[25px] bg-primary text-center rounded-[20px]">
-            <div onClick={UploadProfileUi} className="userImg group relative w-[100px] h-[100px] rounded-full m-auto overflow-hidden transition-[0.4s] border-2 ">
-              <img src={Profile} alt="" className='z-[0]  absolute pointer' />
+            <div onClick={UploadProfileUi} className="userImg group relative w-[100px] h-[100px] py-2 rounded-full m-auto overflow-hidden transition-[0.4s] border-2 ">
+            
+            {
+              
+            profileImage ? <img src={Profile} alt="" className='z-[0]  absolute pointer' />   
+             :
+             <img src={imageData} alt="" className='z-[0]  absolute pointer' /> 
+             
+            }
+
+            
               <div className="text-4xl  font-bold z-[1] text-[#fff] overly w-full h-full absolute left-0 top-0 group-hover:bg-[#000] group-hover:opacity-[0.4] opacity-[0] rounded-full flex justify-center items-center z-[0] cursor-pointer">                
               <BiCloudUpload className=''></BiCloudUpload>
               </div>
