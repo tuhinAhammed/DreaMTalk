@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import {FcGoogle} from '@react-icons/all-files/fc/FcGoogle'
 import {FaFacebookSquare} from '@react-icons/all-files/fa/FaFacebookSquare'
 import {  signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import CurrentProfile from "../../../public/images/profile.png"
 
 
 
@@ -82,7 +83,7 @@ const Registration = () => {
                 
                 updateProfile(auth.currentUser, {
                     displayName: fullName,
-                    photoURL: "https://example.com/jane-q-user/profile.jpg"
+                    photoURL: CurrentProfile 
                   }).then(() => {
                     // Profile updated!
                     console.log("bg" , user)

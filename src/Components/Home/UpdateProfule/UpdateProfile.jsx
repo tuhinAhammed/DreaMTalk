@@ -2,10 +2,11 @@ import React, { useState , createRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import currentProfile from "../../../../public/images/profile.png"
 import Cropper from "react-cropper";
-import { getAuth, updateProfile } from 'firebase/auth';
+import { getAuth, onAuthStateChanged, updateProfile } from 'firebase/auth';
 import { getDownloadURL, getStorage, ref, uploadString } from "firebase/storage";
 import "cropperjs/dist/cropper.css";
 import { useDispatch, useSelector } from 'react-redux';
+import { userLoginInfo } from '../../../Redux/Slice/userSlice';
 
 const UpdateProfile = () => {
     // const [uploadImageModal , setUploadImageModal] = useState("false")
@@ -48,11 +49,11 @@ const UpdateProfile = () => {
         console.log('Uploaded a data_url string!');
         });
         getDownloadURL(storageRef).then((downloadURL) => {
-            console.log('File available at', downloadURL);
+            // console.log('File available at', downloadURL);
             
             updateProfile(auth.currentUser, {
                 photoURL: downloadURL 
-            })
+            }) 
             .then (() => {
                 setImage("")
                 setCropData("")

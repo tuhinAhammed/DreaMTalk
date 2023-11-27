@@ -23,10 +23,12 @@ const Home = () => {
       navigate("/login")
     }
     else {
-      onAuthStateChanged(auth, (user) => {
+      onAuthStateChanged(auth, (user) => {       
         dispatch(userLoginInfo(user));
+        console.log(user)
         localStorage.setItem("userLoginInfo", JSON.stringify(user));
-      });
+    });
+      
     }
   })
   return (
