@@ -22,7 +22,8 @@ const Sidebar = () => {
   const dispatch = useDispatch ()
   const imageData = useSelector(state => state.userLoginInfo.userInfo)
     console.log(imageData)
-
+  const displayName = useSelector(state => state.userLoginInfo.userInfo.displayName)
+    console.log(displayName)
   const UploadProfileUi = (() =>{
     navigate("/UpdateProfile")
     console.log("all is well")
@@ -50,7 +51,7 @@ const Sidebar = () => {
   return (
     <>
         <div className="homeSidebar w-[160px] h-full px-[25px] py-[25px] bg-primary text-center rounded-[20px]">
-            <div onClick={UploadProfileUi} className="userImg group relative w-[100px] h-[100px] py-2 rounded-full m-auto overflow-hidden transition-[0.4s] border-2 ">
+            <div onClick={UploadProfileUi} className="userImg group relative w-[100px] h-[100px]  rounded-full m-auto overflow-hidden transition-[0.4s] border-2 ">
                         
               
            <img src={imageData.photoURL} alt="" className='z-[0]  absolute pointer' />  
@@ -60,6 +61,7 @@ const Sidebar = () => {
               <BiCloudUpload className=''></BiCloudUpload>
               </div>
             </div>
+            <div className="text-sm mt-2 text-white leading-4 font-bold">{displayName}</div>
             <ul className='text-center w-full py-[20px] '>
               <li className=" text-[40px] text-[#5F35F5] py-[10px] px-[40px] rounded-lg mt-[20px] bg-[#fff] flex justify-center cursor-pointer border-[2px]"><AiOutlineHome></AiOutlineHome>
               </li>

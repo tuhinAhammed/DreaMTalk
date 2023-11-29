@@ -10,7 +10,7 @@ import {FcGoogle} from '@react-icons/all-files/fc/FcGoogle'
 import {FaFacebookSquare} from '@react-icons/all-files/fa/FaFacebookSquare'
 import {  signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import CurrentProfile from "../../../public/images/profile.png"
-
+import { getDatabase, ref, set } from "firebase/database";
 
 
 const Registration = () => {
@@ -25,7 +25,7 @@ const Registration = () => {
     const [passwordShow, setPasswordShow] = useState(false)
     const [regSuccess , setRegSuccess] = useState('')
     const provider = new GoogleAuthProvider();
-
+    const db = getDatabase();
 
     const googleHandle = () =>{
         console.log("all is well")
@@ -95,7 +95,15 @@ const Registration = () => {
                     setTimeout(() => {
                     navigate('/login')
                     }, 3000)
-                  }).catch((error) => {
+                  }).then(() =>{
+                      set(ref(db, 'users/' + user.user.uid), {
+                          username: user.user.displayName,
+                          email: user.user.email,
+                          photoURL : user.user.photoURL,
+                        });
+                    })
+                    console.log(user.user.uid)
+                  .catch((error) => {
                     // An error occurred
                     // ...
                   });

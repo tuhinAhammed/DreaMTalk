@@ -7,10 +7,13 @@ import { getDownloadURL, getStorage, ref, uploadString } from "firebase/storage"
 import "cropperjs/dist/cropper.css";
 import { useDispatch, useSelector } from 'react-redux';
 import { userLoginInfo } from '../../../Redux/Slice/userSlice';
+import { getDatabase } from 'firebase/database';
+
 
 const UpdateProfile = () => {
     // const [uploadImageModal , setUploadImageModal] = useState("false")
     const navigate = useNavigate()
+    const db = getDatabase();
     const uploadImageModalCancel = (() => {
         navigate("/")
         console.log("cancel Successfull")
@@ -57,8 +60,8 @@ const UpdateProfile = () => {
             .then (() => {
                 setImage("")
                 setCropData("")
+                navigate("/")
             })
-            navigate("/")
         });
       };
 
@@ -67,7 +70,7 @@ const UpdateProfile = () => {
             <div className="updateProfile  flex justify-center bg-primary items-center m-auto h-screen">
                 <div className="w-1/2 p-6 rounded bg-white">
                     <div className="text text-2xl font-semibold">Upload Profile Picture</div>
-                    <div className="userImg group relative w-[120px] h-[120px] py-1 my-2 rounded-full m-auto overflow-hidden  border-2 ">
+                    <div className="userImg group relative w-[120px] h-[120px]  my-2 rounded-full m-auto overflow-hidden  border-2 ">
 
 
                         {
