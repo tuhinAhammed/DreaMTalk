@@ -99,10 +99,9 @@ const Registration = () => {
                       set(ref(db, 'users/' + user.user.uid), {
                           username: user.user.displayName,
                           email: user.user.email,
-                          photoURL : user.user.photoURL,
                         });
                     })
-                    console.log(user.user.uid)
+                    // console.log(user.user.uid)
                   .catch((error) => {
                     // An error occurred
                     // ...

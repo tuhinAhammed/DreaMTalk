@@ -9,7 +9,7 @@ export  const userSlice = createSlice({
     reducers : {
         userLoginInfo : (state , action) => {
             state.userInfo = action.payload
-            console.log("This IS PAYLOAD" ,action.payload  )
+            // console.log("This IS PAYLOAD" ,action.payload  )
         }
 
     }

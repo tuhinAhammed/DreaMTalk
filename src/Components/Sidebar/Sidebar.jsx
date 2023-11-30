@@ -21,9 +21,9 @@ const Sidebar = () => {
   const [profileImage , setProfileImage] = useState("false")
   const dispatch = useDispatch ()
   const imageData = useSelector(state => state.userLoginInfo.userInfo)
-    console.log(imageData)
+    // console.log(imageData)
   const displayName = useSelector(state => state.userLoginInfo.userInfo.displayName)
-    console.log(displayName)
+    // console.log(displayName)
   const UploadProfileUi = (() =>{
     navigate("/UpdateProfile")
     console.log("all is well")

@@ -17,7 +17,7 @@ const Home = () => {
   const auth = getAuth()
   const dispatch = useDispatch()
   const data = useSelector(state => state.userLoginInfo.userInfo)
-  console.log("Here data" , data);
+  // console.log("Here data" , data);
   useEffect (() => {
     if  (!data) {
       navigate("/login")
@@ -25,7 +25,7 @@ const Home = () => {
     else {
       onAuthStateChanged(auth, (user) => {       
         dispatch(userLoginInfo(user));
-        console.log(user)
+        // console.log(user)
         localStorage.setItem("userLoginInfo", JSON.stringify(user));
     });
       
