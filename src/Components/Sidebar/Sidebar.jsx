@@ -20,9 +20,9 @@ const Sidebar = () => {
   const [password , setPassword] = useState ('')
   const [profileImage , setProfileImage] = useState("false")
   const dispatch = useDispatch ()
-  const imageData = useSelector(state => state.userLoginInfo.userInfo)
+  const imageData = useSelector(state => state.userLoginInfo?.userInfo)
     // console.log(imageData)
-  const displayName = useSelector(state => state.userLoginInfo.userInfo.displayName)
+  const displayName = useSelector(state => state.userLoginInfo.userInfo?.displayName)
     // console.log(displayName)
   const UploadProfileUi = (() =>{
     navigate("/UpdateProfile")
@@ -54,7 +54,7 @@ const Sidebar = () => {
             <div onClick={UploadProfileUi} className="userImg group relative w-[100px] h-[100px]  rounded-full m-auto overflow-hidden transition-[0.4s] border-2 ">
                         
               
-           <img src={imageData.photoURL} alt="" className='z-[0]  absolute pointer' />  
+           <img src={imageData?.photoURL} alt="" className='z-[0]  absolute pointer' />  
            
             
               <div className="text-4xl  font-bold z-[1] text-[#fff] overly w-full h-full absolute left-0 top-0 group-hover:bg-[#000] group-hover:opacity-[0.4] opacity-[0] rounded-full flex justify-center items-center z-[0] cursor-pointer">                
